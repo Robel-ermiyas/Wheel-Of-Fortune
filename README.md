@@ -46,7 +46,6 @@ A fun and interactive game that tests your luck and knowledge! Spin the wheel an
 For inquiries or feedback, feel free to reach out!
 
 - [Robel Ermiyas' LinkedIn](https://www.linkedin.com/in/robel-ermiyas)
-- **Email**: robel@example.com (replace with actual email)
 
 ---
 
