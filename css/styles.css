@@ -1,1 +1,447 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  background-color: darkslategray;
+}
+
+button {
+  border-radius: 5px;
+  border: none;
+}
+
+.container {
+  margin: 20px auto;
+  height: 95vh;
+  width: 100vw;
+  max-width: 1200px;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-template-rows: 2fr 0.5fr 1fr;
+  grid-template-areas:
+    'whl brd'
+    'ctrl letters'
+    'ctrl players';
+}
+
+  /* Responsive adjustments */
+@media (max-width: 768px) {
+  .container {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    grid-template-areas:
+      'whl'
+      'brd'
+      'ctrl'
+      'letters'
+      'players';
+  }
+
+  .wheel {
+    width: 250px;
+    height: 250px;
+  }
+
+  #player-msg {
+    width: 80%;
+  }
+
+  .controls>button,
+  .ctrl-btn {
+    width: 80%;
+  }
+
+  .vowel-container {
+    width: 100%;
+  }
+
+  .letter-btn {
+    width: 20px;
+    height: 25px;
+  }
+
+  #category {
+    width: 80%;
+  }
+
+  .info-modal {
+    width: 90%;
+  }
+
+  #player1,
+  #player2 {
+    width: 90%;
+  }
+}
+
+.wheel-wrapper {
+  margin: auto;
+  position: relative;
+}
+
+.wheel {
+  background: url('../assets/images/wheel.svg');
+  background-size: contain;
+  margin: auto;
+  grid-area: whl;
+  width: 350px;
+  height: 350px;
+  border-radius: 50%;
+  position: relative;
+  transition: transform 2s ease-out;
+}
+
+.pointer {
+  width: 1px;
+  z-index: 2;
+  position: absolute;
+  top: -70px;
+  left: 51%;
+  border-top: 80px solid black;
+  border-left: 15px solid transparent;
+  border-right: 15px solid transparent;
+  transform: rotateZ(10deg);
+  transform-origin: top;
+}
+
+.ticker {
+  animation: wiggle 500ms linear infinite;
+}
+
+.spin-result {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  font-weight: 800;
+  opacity: 1;
+  width: 280px;
+  height: 120px;
+  z-index: 2;
+  background-color: rgb(58, 57, 57);
+  border-radius: 6px;
+  color: #efefef;
+  top: 115px;
+  left: 30px;
+  transition: transform opacity 1s ease-in-out;
+}
+
+.spin {
+  animation: spin 1.5s linear 3;
+}
+
+.controls {
+  grid-area: ctrl;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 60px 0;
+}
+
+#player-msg {
+  background-color: rgb(58, 57, 57);
+  color: #efefef;
+  width: 225px;
+  padding: 10px;
+  border-radius: 5px;
+  text-align: center;
+  text-transform: capitalize;
+}
+
+.controls>button {
+  margin: 10px 0;
+}
+
+.vowel-container {
+  display: flex;
+  width: 175px;
+  justify-content: space-evenly;
+}
+
+.ctrl-btn {
+  display: block;
+  width: 175px;
+  padding: 8px 0;
+}
+
+.letter-btn {
+  width: 25px;
+  height: 29px;
+  padding: 5px 0;
+}
+
+.board {
+  background: linear-gradient(345deg, rgb(45, 33, 216), rgb(16, 10, 94));
+  grid-area: brd;
+  width: 100%;
+  padding: 20px 10px;
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
+}
+
+.puzzle {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+#category {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  background-color: white;
+  text-align: center;
+  transform: translateX(-50%);
+  width: 350px;
+  padding: 10px;
+}
+
+.letter-container {
+  height: 50px;
+  width: 35px;
+  margin: 30px 2px;
+  background-color: rgb(238, 235, 228);
+  border: 2px solid black;
+  border-radius: 4px;
+  position: relative;
+}
+
+.board-letter {
+  position: absolute;
+  opacity: 1;
+  background-color: white;
+  border-radius: 4px;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding-top: 5px;
+  font-size: 2rem;
+  font-weight: 800;
+  text-align: center;
+  transition: opacity 1s ease-in-out;
+}
+
+.board-space {
+  background-color: lightskyblue;
+  opacity: 0.5;
+}
+
+.word {
+  display: flex;
+  margin: 0 10px;
+  max-height: 80px;
+}
+
+.letters {
+  grid-area: letters;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.players {
+  grid-area: players;
+  display: flex;
+  justify-content: space-around;
+}
+
+.info-modal {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  text-transform: capitalize;
+  transform: translate(-50%, -50%);
+  transition: opacity 1s ease-in-out;
+  z-index: 10;
+  width: 400px;
+}
+
+.info-modal>input {
+  margin-bottom: 15px;
+  padding: 5px;
+  border: none;
+  border-radius: 3px;
+}
+
+#submit-name {
+  padding: 3px 5px;
+}
+
+#player1,
+#player2 {
+  display: flex;
+  flex-direction: column;
+  width: 45%;
+  border: 2px solid black;
+}
+
+.current-player {
+  border: 2px solid white;
+  border-radius: 6px;
+  padding: 10px;
+}
+
+.info-modal,
+#player1,
+#player2 {
+  height: 175px;
+  background-color: rgba(0, 0, 0, 0.85);
+  border-radius: 10px;
+  align-items: center;
+  color: rgb(223, 217, 217);
+}
+
+.info-modal>h2,
+#player1>h2,
+#player2>h2 {
+  margin: 25px 0;
+  text-align: center;
+}
+
+.hide {
+  opacity: 0;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotateZ(0deg);
+  }
+
+  25% {
+    transform: rotateZ(90deg);
+  }
+
+  50% {
+    transform: rotateZ(180deg);
+  }
+
+  75% {
+    transform: rotateZ(270deg);
+  }
+
+  100% {
+    transform: rotateZ(360deg);
+  }
+}
+
+@keyframes wiggle {
+  0% {
+    transform: rotateZ(10deg);
+  }
+
+  25% {
+    transform: rotateZ(0deg);
+  }
+
+  50% {
+    transform: rotateZ(-10deg);
+  }
+
+  75% {
+    transform: rotateZ(0deg);
+  }
+
+  100% {
+    transform: rotateZ(10deg);
+  }
+}
+/* Button styles */
+button {
+  background-color: #4CAF50;
+  /* Green background */
+  border: none;
+  /* Remove border */
+  color: white;
+  /* White text */
+  padding: 15px 32px;
+  /* Padding */
+  text-align: center;
+  /* Center text */
+  text-decoration: none;
+  /* No underline */
+  display: inline-block;
+  /* Inline block */
+  font-size: 16px;
+  /* Font size */
+  margin: 4px 2px;
+  /* Margins */
+  cursor: pointer;
+  /* Pointer cursor */
+  border-radius: 8px;
+  /* Rounded corners */
+  transition: background-color 0.3s, transform 0.2s;
+  /* Transition effects */
+}
+
+/* Hover effect for buttons */
+button:hover {
+  background-color: #45a049;
+  /* Darker green */
+  transform: scale(1.05);
+  cursor: pointer;
+  /* Slightly enlarge */
+}
+
+/* Pointer styles */
+/* .pointer {
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 20px solid red;
+  Color of the pointer
+  position: absolute;
+  top: -20px;
+  Adjust position as needed
+  left: 50%;
+  transform: translateX(-50%);
+  Center the pointer
+  cursor: pointer;
+  Change to pointer cursor
+} */
+
+/* Ensuring the pointer changes to hand when hovered */
+
+
+/* Additional styling for the modal input */
+#player-name {
+  padding: 10px;
+  /* Padding for the input */
+  border: 2px solid #ccc;
+  /* Border for the input */
+  border-radius: 5px;
+  /* Rounded corners */
+  width: calc(100% - 22px);
+  /* Full width minus padding */
+  margin-bottom: 10px;
+  /* Space below input */
+  font-size: 16px;
+  /* Font size */
+}
+
+/* Styling for the modal */
+.info-modal {
+  background-color: rgba(255, 255, 255, 0.9);
+  /* Slightly transparent white */
+  border-radius: 10px;
+  /* Rounded corners */
+  padding: 20px;
+  /* Padding */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  /* Shadow effect */
+}
+
 
