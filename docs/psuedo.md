@@ -1,0 +1,22 @@
+#Wheel of Fortune
+
+- Get player 1 Name
+- Get Player 2 Name
+- Load Puzzle
+  - Create Puzzle Elements and Display
+- Start Game
+  - Player Choice (spin, solve, buy vowel)
+    - If Spin
+      - Spin is good
+        - Select Letter
+          - Letter in Puzzle -> reveal letters, add to score Make next choice
+          - Letter not in Puzzle -> switch players, player Make Choice
+      - Bad Spin -> switch players, player Make Choice
+    - If Vowel
+      - Check player can buy vowel
+      - Deduct vowel cost
+        - Letter in Puzzle -> reveal letters, Make next Choice
+        - Letter not in Puzzle -> switch players, player Make Choice
+    - If Solve
+      - Player Entry == puzzle -> Player Wins
+      - Player Entry != puzzle -> switch players, player Make Choice
